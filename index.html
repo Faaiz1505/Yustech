@@ -1973,3 +1973,1003 @@ body::after {
   display: flex;
   justify-content: space-between;
   }
+}
+
+/* ============================================
+   PARTICLE NETWORK CANVAS
+   ============================================ */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 350px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  z-index: 2000;
+  padding: 80px 30px 30px;
+  transition: right 0.4s ease;
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 1999;
+  display: none;
+  backdrop-filter: blur(5px);
+}
+
+.mobile-menu-overlay.active {
+  display: block;
+}
+
+.mobile-menu ul {
+  list-style: none;
+}
+
+.mobile-menu li {
+  margin-bottom: 5px;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 15px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+}
+
+.mobile-menu a:hover {
+  background: var(--bg-glass);
+  color: var(--accent-primary);
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+  .about-grid, .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 20px;
+  }
+  #main-nav {
+    padding: 12px 20px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  .mission-vision {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-brand {
+    max-width: 100%;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .testimonial-card {
+    min-width: 280px;
+    max-width: 280px;
+  }
+  .contact-form {
+    padding: 25px;
+  }
+  .founder-card {
+    padding: 25px;
+  }
+  #terminal {
+    width: 95%;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-logo {
+    font-size: 1.5rem;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .achievement-number {
+    font-size: 2.5rem;
+  }
+  .dm-stat {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================
+   ANIMATIONS & UTILITIES
+   ============================================ */
+.glow-text {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+section {
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Service card tilt effect */
+.service-card.tilting {
+  transition: transform 0.1s ease-out;
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- ============================================
+     LOADING SCREEN
+     ============================================ -->
+<div id="loading-screen">
+  <div class="loading-logo">YUSTECH INTERNATIONAL</div>
+  <div class="loading-bar-container">
+    <div class="loading-bar" id="loading-bar"></div>
+  </div>
+  <div class="loading-text" id="loading-text">Initializing Systems...</div>
+  <div class="loading-percentage" id="loading-percentage">0%</div>
+</div>
+
+<!-- ============================================
+     PARTICLE NETWORK BACKGROUND
+     ============================================ -->
+<canvas id="particle-canvas" aria-label="Animated particle network background" role="img"></canvas>
+
+<!-- ============================================
+     NAVIGATION - Smart Hide/Show
+     ============================================ -->
+<nav id="main-nav" aria-label="Main navigation">
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" role="button" tabindex="0">YUSTECH</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="theme-toggle" onclick="toggleThemeDropdown()" aria-label="Change theme">
+      <i class="fas fa-palette"></i> Theme
+    </button>
+    <div class="theme-dropdown" id="theme-dropdown" role="menu">
+      <div class="theme-option active" data-theme="dark" onclick="setTheme('dark')" role="menuitem" tabindex="0">🌙 Dark</div>
+      <div class="theme-option" data-theme="cyber" onclick="setTheme('cyber')" role="menuitem" tabindex="0">💜 Cyber</div>
+      <div class="theme-option" data-theme="space" onclick="setTheme('space')" role="menuitem" tabindex="0">🌌 Space</div>
+      <div class="theme-option" data-theme="ocean" onclick="setTheme('ocean')" role="menuitem" tabindex="0">🌊 Ocean</div>
+    </div>
+    <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open mobile menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobile-overlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation menu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close mobile menu">
+    <i class="fas fa-times"></i>
+  </button>
+  <ul>
+    <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+    <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+    <li><a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a></li>
+    <li><a href="#education" onclick="closeMobileMenu()">Education Hub</a></li>
+    <li><a href="#training" onclick="closeMobileMenu()">Training Academy</a></li>
+    <li><a href="#marketing" onclick="closeMobileMenu()">Digital Marketing</a></li>
+    <li><a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a></li>
+    <li><a href="#achievements" onclick="closeMobileMenu()">Achievements</a></li>
+    <li><a href="#team" onclick="closeMobileMenu()">Team</a></li>
+    <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
+    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- ============================================
+     HERO SECTION - With Typewriter Effect
+     ============================================ -->
+<section id="hero" aria-label="Hero section">
+  <div id="three-canvas" role="img" aria-label="Animated 3D globe with particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fas fa-rocket"></i>
+      <span>Welcome to the Future</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="gradient-text" id="hero-typing"></span><span class="cursor-blink" id="typing-cursor">|</span>
+    </h1>
+    <p class="hero-tagline">Technology • Education • Digital Innovation</p>
+    <p class="hero-description">Building websites, empowering students, and creating digital opportunities for individuals and businesses worldwide.</p>
+    <div class="hero-buttons">
+      <a href="#services" class="btn btn-primary">
+        <i class="fas fa-compass"></i> Explore Services
+      </a>
+      <a href="#portfolio" class="btn btn-secondary">
+        <i class="fas fa-layer-group"></i> View Portfolio
+      </a>
+      <a href="#contact" class="btn btn-secondary">
+        <i class="fas fa-envelope"></i> Contact Us
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll Progress Ring -->
+  <div class="scroll-progress-ring" aria-label="Scroll progress indicator">
+    <svg width="50" height="50" viewBox="0 0 50 50">
+      <circle class="bg" cx="25" cy="25" r="20"></circle>
+      <circle class="progress" id="scroll-progress" cx="25" cy="25" r="20"></circle>
+    </svg>
+    <div class="arrow"><i class="fas fa-chevron-down"></i></div>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT SECTION
+     ============================================ -->
+<section id="about" class="section" aria-label="About us section">
+  <div class="section-header fade-in">
+    <div class="section-label">About Us</div>
+    <h2 class="section-title">Who We Are</h2>
+    <p class="section-subtitle">A passionate team dedicated to transforming lives through technology and education</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-founder fade-in">
+      <div class="founder-card">
+        <div class="founder-avatar" aria-label="Yusef Adek founder avatar">👨‍💼</div>
+        <h3 class="founder-name">Yusef Adek</h3>
+        <p class="founder-role">Founder & CEO</p>
+        <p class="founder-bio">A passionate technology professional, educational consultant, digital entrepreneur, and creative problem solver dedicated to helping individuals, students, and businesses achieve success through technology and innovation.</p>
+      </div>
+    </div>
+
+    <div class="about-info fade-in stagger-1">
+      <h3>Our Story</h3>
+      <p>Yustech International Limited was founded with a vision to bridge the gap between technology and education. We believe that everyone deserves access to quality digital services and educational opportunities.</p>
+      <p>From humble beginnings, we have grown into a trusted partner for hundreds of students, businesses, and individuals seeking to harness the power of technology.</p>
+
+      <div class="mission-vision">
+        <div class="mv-card">
+          <i class="fas fa-bullseye"></i>
+          <h4>Our Mission</h4>
+          <p>To empower individuals and businesses through innovative technology solutions and quality educational services.</p>
+        </div>
+        <div class="mv-card">
+          <i class="fas fa-eye"></i>
+          <h4>Our Vision</h4>
+          <p>To become Africa's leading technology and education company, transforming lives one digital solution at a time.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-title">Foundation</div>
+          <div class="timeline-desc">Yustech International Limited was founded by Yusef Adek with a vision to merge technology and education.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-title">Expansion</div>
+          <div class="timeline-desc">Launched educational consultancy services and began JAMB/Post-UTME registration assistance.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-title">Digital Growth</div>
+          <div class="timeline-desc">Expanded into website development, digital marketing, and coding training programs.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-title">Innovation Hub</div>
+          <div class="timeline-desc">Launched the Training Academy and began serving international clients with premium digital solutions.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024-2025</div>
+          <div class="timeline-title">Global Reach</div>
+          <div class="timeline-desc">Achieved 100+ students assisted, 50+ digital projects completed, and expanded Temu consultancy services.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SERVICES SECTION - With Tilt Effect
+     ============================================ -->
+<section id="services" class="section" aria-label="Services section">
+  <div class="section-header fade-in">
+    <div class="section-label">Our Services</div>
+    <h2 class="section-title">What We Offer</h2>
+    <p class="section-subtitle">Comprehensive digital solutions tailored to your needs</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-globe"></i></div>
+      <h3 class="service-title">Website Development</h3>
+      <p class="service-desc">Custom, responsive, and high-performance websites built with modern technologies.</p>
+      <div class="service-details">
+        <ul>
+          <li>Business & Corporate Websites</li>
+          <li>E-commerce Platforms</li>
+          <li>Educational Portals</li>
+          <li>Landing Pages & Blogs</li>
+          <li>SEO Optimization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-1" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+      <h3 class="service-title">Educational Consultancy</h3>
+      <p class="service-desc">Expert guidance for students navigating the Nigerian education system.</p>
+      <div class="service-details">
+        <ul>
+          <li>Admission Processing</li>
+          <li>School Selection Assistance</li>
+          <li>O'Level Verification</li>
+          <li>Career Counseling</li>
+          <li>Study Abroad Guidance</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-2" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-file-alt"></i></div>
+      <h3 class="service-title">JAMB Registration</h3>
+      <p class="service-desc">Hassle-free JAMB UTME registration with expert guidance and support.</p>
+      <div class="service-details">
+        <ul>
+          <li>Profile Creation</li>
+          <li>UTME Registration</li>
+          <li>Change of Course/Institution</li>
+          <li>Result Checking</li>
+          <li>Admission Status Monitoring</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-3" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-university"></i></div>
+      <h3 class="service-title">Post-UTME Registration</h3>
+      <p class="service-desc">Complete Post-UTME application assistance for all Nigerian universities.</p>
+      <div class="service-details">
+        <ul>
+          <li>Application Form Filling</li>
+          <li>Document Upload</li>
+          <li>Payment Processing</li>
+          <li>Screening Preparation</li>
+          <li>Admission Follow-up</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-4" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-code"></i></div>
+      <h3 class="service-title">Coding Classes</h3>
+      <p class="service-desc">Learn programming from scratch with hands-on, project-based training.</p>
+      <div class="service-details">
+        <ul>
+          <li>HTML, CSS & JavaScript</li>
+          <li>Python Programming</li>
+          <li>Web Development</li>
+          <li>Mobile App Development</li>
+          <li>Database Management</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-5" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+      <h3 class="service-title">Digital Skills Training</h3>
+      <p class="service-desc">Comprehensive digital skills programs for the modern workforce.</p>
+      <div class="service-details">
+        <ul>
+          <li>Digital Marketing</li>
+          <li>Graphics Design</li>
+          <li>Video Editing</li>
+          <li>Social Media Management</li>
+          <li>Freelancing Skills</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-video"></i></div>
+      <h3 class="service-title">Video Editing</h3>
+      <p class="service-desc">Professional video editing for content creators and businesses.</p>
+      <div class="service-details">
+        <ul>
+          <li>Social Media Videos</li>
+          <li>Corporate Videos</li>
+          <li>YouTube Content</li>
+          <li>Motion Graphics</li>
+          <li>Color Grading</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-1" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+      <h3 class="service-title">Graphics Design</h3>
+      <p class="service-desc">Stunning visual designs that capture your brand essence.</p>
+      <div class="service-details">
+        <ul>
+          <li>Logo & Brand Identity</li>
+          <li>Social Media Graphics</li>
+          <li>Flyers & Brochures</li>
+          <li>Business Cards</li>
+          <li>Infographics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-2" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+      <h3 class="service-title">Temu Consultancy</h3>
+      <p class="service-desc">Expert guidance for selling on Temu and maximizing e-commerce success.</p>
+      <div class="service-details">
+        <ul>
+          <li>Store Setup</li>
+          <li>Product Listing Optimization</li>
+          <li>Sales Strategy</li>
+          <li>Inventory Management</li>
+          <li>Customer Relations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-3" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+      <h3 class="service-title">Digital Marketing</h3>
+      <p class="service-desc">Data-driven marketing strategies to grow your online presence.</p>
+      <div class="service-details">
+        <ul>
+          <li>SEO & Content Marketing</li>
+          <li>Social Media Ads</li>
+          <li>Email Marketing</li>
+          <li>Google Ads</li>
+          <li>Analytics & Reporting</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-4" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-copyright"></i></div>
+      <h3 class="service-title">Business Branding</h3>
+      <p class="service-desc">Complete brand identity development for businesses of all sizes.</p>
+      <div class="service-details">
+        <ul>
+          <li>Brand Strategy</li>
+          <li>Visual Identity Design</li>
+          <li>Brand Guidelines</li>
+          <li>Marketing Collateral</li>
+          <li>Brand Positioning</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card fade-in stagger-5" onclick="toggleService(this)" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <div class="service-icon"><i class="fas fa-server"></i></div>
+      <h3 class="service-title">ICT Solutions</h3>
+      <p class="service-desc">Reliable IT support and infrastructure services for businesses.</p>
+      <div class="service-details">
+        <ul>
+          <li>IT Support & Maintenance</li>
+          <li>Network Setup</li>
+          <li>Software Installation</li>
+          <li>Data Backup & Recovery</li>
+          <li>Security Solutions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PORTFOLIO SECTION - With Gradient Patterns
+     ============================================ -->
+<section id="portfolio" class="section" aria-label="Portfolio section">
+  <div class="section-header fade-in">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Our Work</h2>
+    <p class="section-subtitle">Showcasing our best digital projects and creative solutions</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-image" aria-label="Educational Portal project">📚</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">Education</div>
+        <h3 class="portfolio-title">Educational Portal</h3>
+        <p class="portfolio-desc">A comprehensive online learning platform with course management, student dashboards, and interactive assessments for secondary schools.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">React</span>
+          <span class="portfolio-tag">Node.js</span>
+          <span class="portfolio-tag">MongoDB</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in stagger-1">
+      <div class="portfolio-image" aria-label="Corporate Website project">🏢</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">Business</div>
+        <h3 class="portfolio-title">Corporate Website</h3>
+        <p class="portfolio-desc">A premium corporate website for a leading logistics company featuring real-time tracking, service booking, and client portal.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">Vue.js</span>
+          <span class="portfolio-tag">Laravel</span>
+          <span class="portfolio-tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in stagger-2">
+      <div class="portfolio-image" aria-label="School Registration Platform project">📝</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">Education</div>
+        <h3 class="portfolio-title">School Registration Platform</h3>
+        <p class="portfolio-desc">An automated school registration and admission processing system used by multiple institutions across Nigeria.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">PHP</span>
+          <span class="portfolio-tag">JavaScript</span>
+          <span class="portfolio-tag">PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in stagger-3">
+      <div class="portfolio-image" aria-label="E-commerce Store project">🛒</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">E-commerce</div>
+        <h3 class="portfolio-title">E-commerce Store</h3>
+        <p class="portfolio-desc">A fully-featured online store with payment integration, inventory management, and multi-vendor support.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">Shopify</span>
+          <span class="portfolio-tag">Stripe</span>
+          <span class="portfolio-tag">AWS</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in stagger-4">
+      <div class="portfolio-image" aria-label="Corporate Branding Project">🎨</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">Branding</div>
+        <h3 class="portfolio-title">Corporate Branding Project</h3>
+        <p class="portfolio-desc">Complete brand identity package including logo design, brand guidelines, stationery, and marketing materials.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">Illustrator</span>
+          <span class="portfolio-tag">Photoshop</span>
+          <span class="portfolio-tag">Figma</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in stagger-5">
+      <div class="portfolio-image" aria-label="Video Editing Projects">🎬</div>
+      <div class="portfolio-content">
+        <div class="portfolio-category">Creative</div>
+        <h3 class="portfolio-title">Video Editing Projects</h3>
+        <p class="portfolio-desc">Professional video editing for social media campaigns, corporate presentations, and YouTube content creators.</p>
+        <div class="portfolio-tags">
+          <span class="portfolio-tag">Premiere Pro</span>
+          <span class="portfolio-tag">After Effects</span>
+          <span class="portfolio-tag">DaVinci</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     EDUCATION HUB
+     ============================================ -->
+<section id="education" class="section" aria-label="Education hub section">
+  <div class="section-header fade-in">
+    <div class="section-label">Education Hub</div>
+    <h2 class="section-title">Educational Services</h2>
+    <p class="section-subtitle">Your gateway to academic success and career advancement</p>
+  </div>
+  <div class="edu-hub-grid">
+    <div class="edu-card fade-in">
+      <div class="edu-icon"><i class="fas fa-door-open"></i></div>
+      <h3>Current Admissions</h3>
+      <p>Stay updated with ongoing admission opportunities across Nigerian universities, polytechnics, and colleges of education.</p>
+      <span class="edu-status">Now Open</span>
+    </div>
+    <div class="edu-card fade-in stagger-1">
+      <div class="edu-icon"><i class="fas fa-newspaper"></i></div>
+      <h3>JAMB Updates</h3>
+      <p>Get the latest JAMB news, registration deadlines, syllabus updates, and examination schedules directly from official sources.</p>
+      <span class="edu-status">Active</span>
+    </div>
+    <div class="edu-card fade-in stagger-2">
+      <div class="edu-icon"><i class="fas fa-clipboard-check"></i></div>
+      <h3>Post-UTME Updates</h3>
+      <p>Real-time updates on Post-UTME screening dates, requirements, and application deadlines for all institutions.</p>
+      <span class="edu-status">Active</span>
+    </div>
+    <div class="edu-card fade-in stagger-3">
+      <div class="edu-icon"><i class="fas fa-route"></i></div>
+      <h3>Admission Guidance</h3>
+      <p>Expert counseling to help you choose the right course and institution based on your interests, capabilities, and career goals.</p>
+      <span class="edu-status">Available</span>
+    </div>
+    <div class="edu-card fade-in stagger-4">
+      <div class="edu-icon"><i class="fas fa-certificate"></i></div>
+      <h3>O'Level Verification</h3>
+      <p>Assistance with WAEC, NECO, and NABTEB result verification for admission processing and employment requirements.</p>
+      <span class="edu-status">Available</span>
+    </div>
+    <div class="edu-card fade-in stagger-5">
+      <div class="edu-icon"><i class="fas fa-school"></i></div>
+      <h3>School Selection Assistance</h3>
+      <p>Data-driven recommendations to help you select institutions with the best admission prospects for your chosen course.</p>
+      <span class="edu-status">Available</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRAINING ACADEMY
+     ============================================ -->
+<section id="training" class="section" aria-label="Training academy section">
+  <div class="section-header fade-in">
+    <div class="section-label">Training Academy</div>
+    <h2 class="section-title">Learn With Us</h2>
+    <p class="section-subtitle">Industry-relevant training programs designed for real-world success</p>
+  </div>
+  <div class="training-grid">
+    <div class="training-card fade-in">
+      <div class="training-header">
+        <div class="training-icon"><i class="fab fa-html5"></i></div>
+        <div><h3 class="training-title">HTML Fundamentals</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 2 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Master the building blocks of the web. Learn semantic HTML, forms, tables, and best practices for clean markup.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>Semantic HTML5 elements</li>
+          <li>Forms and validation</li>
+          <li>Accessibility best practices</li>
+          <li>SEO-friendly markup</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-1">
+      <div class="training-header">
+        <div class="training-icon"><i class="fab fa-css3-alt"></i></div>
+        <div><h3 class="training-title">CSS & Styling</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 3 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Create stunning, responsive designs with CSS3, Flexbox, Grid, animations, and modern styling techniques.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>CSS Grid & Flexbox layouts</li>
+          <li>Responsive design principles</li>
+          <li>CSS animations & transitions</li>
+          <li>CSS variables & custom properties</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-2">
+      <div class="training-header">
+        <div class="training-icon"><i class="fab fa-js"></i></div>
+        <div><h3 class="training-title">JavaScript Programming</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 4 Weeks</span>
+        <span><i class="fas fa-signal"></i> Intermediate</span>
+      </div>
+      <p class="training-desc">Build interactive web applications with modern JavaScript, DOM manipulation, APIs, and async programming.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>ES6+ modern syntax</li>
+          <li>DOM manipulation & events</li>
+          <li>Fetch API & async/await</li>
+          <li>Local storage & JSON</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-3">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-laptop-code"></i></div>
+        <div><h3 class="training-title">Full-Stack Web Development</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 8 Weeks</span>
+        <span><i class="fas fa-signal"></i> Advanced</span>
+      </div>
+      <p class="training-desc">Build complete web applications from frontend to backend with databases, authentication, and deployment.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>Frontend frameworks (React/Vue)</li>
+          <li>Backend with Node.js/PHP</li>
+          <li>Database design & queries</li>
+          <li>Deployment & hosting</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-4">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-bullhorn"></i></div>
+        <div><h3 class="training-title">Digital Marketing</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 4 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Learn SEO, social media marketing, content strategy, email marketing, and paid advertising campaigns.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>SEO fundamentals & tools</li>
+          <li>Social media strategy</li>
+          <li>Content creation & planning</li>
+          <li>Analytics & reporting</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-5">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-paint-brush"></i></div>
+        <div><h3 class="training-title">Graphics Design</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 3 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Master design principles, typography, color theory, and create professional designs using industry tools.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>Design principles & theory</li>
+          <li>Canva & Photoshop basics</li>
+          <li>Logo & brand design</li>
+          <li>Social media graphics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-video"></i></div>
+        <div><h3 class="training-title">Video Editing</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 3 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Edit professional videos, add effects, color grade, and create engaging content for any platform.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>CapCut & Premiere Pro</li>
+          <li>Transitions & effects</li>
+          <li>Color grading basics</li>
+          <li>Audio editing & mixing</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-1">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-briefcase"></i></div>
+        <div><h3 class="training-title">Freelancing</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 2 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Learn how to start and grow a successful freelancing career on platforms like Upwork, Fiverr, and Freelancer.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>Profile optimization</li>
+          <li>Proposal writing</li>
+          <li>Client communication</li>
+          <li>Pricing & negotiation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-card fade-in stagger-2">
+      <div class="training-header">
+        <div class="training-icon"><i class="fas fa-microchip"></i></div>
+        <div><h3 class="training-title">Technology Fundamentals</h3></div>
+      </div>
+      <div class="training-meta">
+        <span><i class="fas fa-clock"></i> 2 Weeks</span>
+        <span><i class="fas fa-signal"></i> Beginner</span>
+      </div>
+      <p class="training-desc">Build a solid foundation in computer science, networking, cybersecurity basics, and emerging technologies.</p>
+      <div class="training-benefits">
+        <h5>What You Will Learn</h5>
+        <ul>
+          <li>Computer hardware basics</li>
+          <li>Networking fundamentals</li>
+          <li>Cybersecurity awareness</li>
+          <li>Cloud computing intro</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     DIGITAL MARKETING
+     ============================================ -->
+<section id="marketing" class="section" aria-label="Digital marketing section">
+  <div class="section-header fade-in">
+    <div class="section-label">Digital Marketing</div>
+    <h2 class="section-title">Grow Your Brand</h2>
+    <p class="section-subtitle">Data-driven strategies that deliver measurable results</p>
+  </div>
+  <div class="dm-grid">
+    <div class="dm-card fade-in">
+      <div class="dm-stat" data-count="500">0</div>
+      <div class="dm-label">Brand Promotions</div>
+      <div class="dm-desc">Successful brand awareness campaigns across multiple platforms</div>
+    </div>
+    <div class="dm-card fade-in stagger-1">
+      <div class="dm-stat" data-count="50">0</div>
+      <div class="dm-label">Social Accounts Managed</div>
+      <div class="dm-desc">Active social media management for businesses and influencers</div>
+    </div>
+    <div class="dm-card fade-in stagger-2">
+      <div class="dm-stat" data-count="1000">0</div>
+      <div class="dm-label">Leads Generated</div>
+      <div class="dm-desc">Qualified leads delivered to our clients through targeted campaigns</div>
+    </div>
+    <div class="dm-card fade-in stagger-3">
+      <div class="dm-stat" data-count="85">0</div>
+      <div class="dm-label">% Visibility Increase</div>
+      <div class="dm-desc">Average improvement in online visibility for our clients</div>
+    </div>
+    <div class="dm-card fade-in stagger-4">
+      <div class="dm-stat" data-count="30">0</div>
+      <div class="dm-label">E-commerce Stores</div>
+      <div class="dm-desc">Online stores launched and optimized for maximum sales</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TESTIMONIALS - Pause on Hover
+     ============================================ -->
+<section id="testimonials" class="section" aria-label="Testimonials section">
+  <div class="section-header fade-in">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What People Say</h2>
+    <p class="section-subtitle">Real feedback from our valued clients and students</p>
+  </div>
+  <div class="testimonials-container">
+    <div class="testimonials-track">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Yustech helped me secure admission into my dream university. Their guidance through JAMB registration and Post-UTME was invaluable. I couldn't have done it without them!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AA</div>
+          <div>
+            <div class="testimonial-name">Adebola Akinola</div>
+            <div class="testimonial-role">University Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">The website Yustech built for my business completely transformed our online presence. Sales increased by 200% within the first three months. Absolutely professional service!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">KO</div>
+          <div>
+            <div class="testimonial-name">Kemi Ogunleye</div>
+            <div class="testimonial-role">Business Owner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I enrolled in the coding training program with zero experience. Within 8 weeks, I built my first website and started freelancing. Yustech changed my life!</p>
+        <div class="testimonial-author" brand i
